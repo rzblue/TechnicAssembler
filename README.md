@@ -16,4 +16,21 @@ It is based off of [TehNut's](https://github.com/TehNut) [Assembler](https://git
 ##File Structure
 
 ```
-/--|
+├── bin
+│   ├── client  Jar modification files
+│   └── server  Server jars, Forge libs, and start scripts
+├── config
+│   ├── client  Client only config files
+│   ├── common  Shared config files
+│   └── server  Server only config files
+├── extra       Extra stuff, such as readme's and licenses
+│   ├── client  
+│   ├── common
+│   └── server
+└── mods        Jars that should be placed in "mods" folder
+    ├── client  Client only mods
+    ├── common  Shared mods
+    └── server  Server only mods
+```
+
+Most of your mods will go into mods/common.
