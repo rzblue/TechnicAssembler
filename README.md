@@ -11,7 +11,7 @@ It is based off of [TehNut's](https://github.com/TehNut) [Assembler](https://git
 * `-o`: This is the name of your modpack. This can be almost anything without spaces. Defaults to "Modpack"
 * `-v`: This is the version of your modpack. Again, almost anything without spaces. Defaults to "0.0.1"
 * `-client`: Builds the client zip. Does not have a modifier. Defaults to false.
-* `-server`: Builds teh server zip. Does not have a modifier. Defaults to false.
+* `-server`: Builds the server zip. Does not have a modifier. Defaults to false.
 
 ##File Structure
 
