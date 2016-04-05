@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -21,7 +19,7 @@ public class ZipFile {
     Side side;
     String outputZip = "";
     String parent = "";
-    String[] ignoredFiles = {".DS_Store"};
+    String[] ignoredFiles = {".DS_Store", ".DS_Store?", "Thumbs.db", "._*", ".Spotlight-V100", ".Trashes", "ehthumbs.db", "Thumbs.db"};
     Map<File, String> relativePath = new HashMap<>();
 
     public ZipFile(Side side) {
