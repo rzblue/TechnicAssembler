@@ -87,7 +87,7 @@ public class TechnicAssembler {
     }
     public static String getZipName(Side side) {
         if(useCustomName) {
-            return customFileName;
+            return customFileName + "-" + side.toString();
         } else {
             return output + "-" + version + "-" + side.toString();
         }
