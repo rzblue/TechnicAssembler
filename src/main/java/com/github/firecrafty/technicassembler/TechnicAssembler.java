@@ -15,12 +15,21 @@ public class TechnicAssembler {
 
     static boolean buildClient = false;
     static boolean buildServer = false;
+    static boolean useCustomName = false;
+    static String customFileName;
     static SimpleLogger logger = new SimpleLogger("TechnicAssembler", new File("TechnicAssembler.log"));
-
+    /**
+     * 
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         logger.startLog();
         for (String arg : args) {
             if (arg.startsWith("-")) {
+                if (arg.startsWith("-n")) {
+                    useCustomName = true;
+                    customFileName = arg.split("=")[1];
+                }
                 if (arg.startsWith("-d"))
                     packDir = getPackFolder(arg.split("=")[1]);
                 if (arg.startsWith("-o="))
@@ -36,7 +45,9 @@ public class TechnicAssembler {
         zipContents();
         logger.stopLog();
     }
-
+    /**
+     * Zips up the contents of the pack for each side based on arguments.
+     */
     public static void zipContents() {
         if (packDir == null) {
             logger.severe("The pack directory is null. Aborting.");
@@ -62,7 +73,11 @@ public class TechnicAssembler {
         }
         
     }
-
+    /**
+     * 
+     * @param dir
+     * @return The directory that the pack is in
+     */
     public static File getPackFolder(String dir) {
         return dir.charAt(1) == ':' ? new File(dir) : new File(getWorkingDirectory() + "/" + dir);
     }
@@ -71,7 +86,11 @@ public class TechnicAssembler {
         return new File(System.getProperty("user.dir"));
     }
     public static String getZipName(Side side) {
-        return output + "-" + version + "-" + side.toString();
+        if(useCustomName) {
+            return customFileName;
+        } else {
+            return output + "-" + version + "-" + side.toString();
+        }
     }
 
 }
