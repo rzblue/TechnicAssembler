@@ -5,4 +5,4 @@ A simple utility to assemble modpacks into the Technic Launcher modpack format. 
 
 It is based off of [TehNut's](https://github.com/TehNut) [Assembler](https://github.com/TehNut/Assembler).
 
-For usage and documentation see the [wiki](https://github.com/firecrafty/TechnicAssembler.wiki.git).
+For usage and documentation see the [wiki](https://github.com/firecrafty/TechnicAssembler/wiki).
