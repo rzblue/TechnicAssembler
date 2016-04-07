@@ -1,7 +1,6 @@
 language: java
 install: 
-    - printenv TEST_PASSWORD
-    - cat test.txt
+    - scripts/setupVariables.sh
     - ./gradlew assemble
 script: ./gradlew build
 before_cache:
