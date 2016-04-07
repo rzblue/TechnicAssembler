@@ -14,7 +14,6 @@ jar {
     classifier = ''
     manifest.mainAttributes(
             "Main-Class": "${main_class}",
-            "Built-By": System.getProperty('user.name'),
             "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
             "Implementation-Title": project.name,
             "Implementation-Version": project.version,
@@ -34,7 +33,7 @@ uploadArchives {
             pom.project {
                 name app_name
                 packaging 'jar'
-                description description
+                description "TechnicAssembler is a Java utility that simplifies the packaging of Minecraft modpacks for distribution on the Technic Platform"
                 url 'https://github.com/firecrafty/TechnicAssembler'
                 
                 scm {
