@@ -12,9 +12,4 @@ public enum Level {
     FINE,
     FINER,
     FINEST;
-    
-    @Override
-    public String toString() {
-        return name();
-    }
 }
