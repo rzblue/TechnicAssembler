@@ -11,36 +11,36 @@ public class TechnicAssembler {
     /**
      * Name of the modpack
      */
-    static String output = "Modpack";
+    private static String output = "Modpack";
     /**
      * Version of the modpack
      */
-    static String version = "0.0.0";
+    private static String version = "0.0.0";
     /**
      * The directory that the pack file structure is in
      */
-    static File packDir = getWorkingDirectory();
+    protected static File packDir = getWorkingDirectory();
 
     /**
      * Build the client?
      */
-    static boolean buildClient = false;
+    private static boolean buildClient;
     /**
      * Build the server?
      */
-    static boolean buildServer = false;
+    private static boolean buildServer;
     /**
      * Use a custom name for the zip file?
      */
-    static boolean useCustomName = false;
+    private static boolean useCustomName;
     /**
      * The custom file name to use
      */
-    static String customFileName;
+    private static String customFileName;
     /**
      * The logger for the program
      */
-    static SimpleLogger logger = new SimpleLogger("TechnicAssembler", new File("TechnicAssembler.log"));
+    protected static SimpleLogger logger = new SimpleLogger("TechnicAssembler", new File("TechnicAssembler.log"));
     /**
      * 
      * @param args Command line arguments
