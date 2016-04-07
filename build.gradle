@@ -62,7 +62,10 @@ uploadArchives {
         }
     }
 }
-
+javadoc {
+    title = "TechnicAssembler v" + app_version
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+}
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from tasks.javadoc.destinationDir
