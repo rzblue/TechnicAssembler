@@ -16,27 +16,27 @@ public class SimpleLogger {
     /**
      * The calendar used for logging
      */
-    Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
     /**
      * The format used to write the timestamp
      */
-    SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+    private SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     /**
      * Log to file?
      */
-    boolean logToFile = false;
+    private boolean logToFile;
     /**
      * The {@code BufferedWriter} used to write to the logfile
      */
-    BufferedWriter write;
+    private BufferedWriter write;
     /**
      * The logfile
      */
-    File logFile;
+    private File logFile;
     /**
      * The name that appears at the beginning of each log
      */
-    String className;
+    private String className;
     /**
      * Basic {@code SimpleLogger} without frills
      */
