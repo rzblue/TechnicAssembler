@@ -1,5 +1,8 @@
 language: java
-install: true
+install: 
+    - ./setupVariables.sh
+    - cat test.txt
+    - ./gradlew assemble
 script: ./gradlew build
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
