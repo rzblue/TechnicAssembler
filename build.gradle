@@ -6,8 +6,6 @@ apply plugin: 'signing'
 archivesBaseName = app_name
 group = package_group
 version = app_version
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 mainClassName="${main_class}"
 jar {
