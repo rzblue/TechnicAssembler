@@ -96,7 +96,7 @@ public class SimpleLogger {
                 out.println(output);
                 out.close();
             } catch (IOException ex) {
-                System.out.println("Having issues? You really shouldn't be seeing this message, but if you do, submit an issue on GitHub.");
+                error(ex);
             }
         }
     }
@@ -176,6 +176,7 @@ public class SimpleLogger {
                 logFile.createNewFile();
             }
         } catch (IOException ex) {
+            error(ex);
         }
         logToFile = true;
     }
@@ -191,6 +192,7 @@ public class SimpleLogger {
                 out.println("========================================");
                 out.close();
             } catch (IOException ex) {
+                error(ex);
             }
         }
     }
@@ -206,8 +208,20 @@ public class SimpleLogger {
                 out.println("========================================");
                 out.close();
             } catch (IOException ex) {
+                error(ex);
             }
         }
+    }
+
+    public void error(Exception ex) {
+        System.out.println("Having issues? You really shouldn't be seeing this message, but if you do, submit an issue on GitHub. Copy and paste this log entry into the issue");
+        System.out.println("================");
+        System.out.println("START STACKTRACE");
+        System.out.println("================");
+        ex.printStackTrace();
+        System.out.println("================");
+        System.out.println(" END STACKTRACE ");
+        System.out.println("================");
     }
 
 }
