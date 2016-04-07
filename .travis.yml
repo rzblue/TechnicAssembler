@@ -2,7 +2,7 @@ language: java
 install: 
     - scripts/setupVariables.sh
     - ./gradlew assemble -Pci
-script: ./gradlew build
+script: ./gradlew build -Pci
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
