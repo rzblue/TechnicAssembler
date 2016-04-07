@@ -22,6 +22,9 @@ jar {
 signing {
     sign configurations.archives
 }
+signArchives {
+    onlyIf { !project.hasProperty('ci') }
+}
 uploadArchives {
     repositories {
         mavenDeployer {
