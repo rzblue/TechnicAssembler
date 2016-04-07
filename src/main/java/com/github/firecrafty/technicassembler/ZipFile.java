@@ -18,23 +18,23 @@ public class ZipFile {
     /**
      * The {@link Side} that the zip will be built for
      */
-    Side side;
+    private final Side side;
     /**
      * The name of the zipfile
      */
-    String outputZip = "";
+    private String outputZip = "";
     /**
      * The parent directory
      */
-    String parent = "";
+    private String parent = "";
     /**
      * List of ignored files to prevent errors and keep a clean filesystem
      */
-    String[] ignoredFiles = {".DS_Store", ".DS_Store?", "Thumbs.db", "._*", ".Spotlight-V100", ".Trashes", "ehthumbs.db", "Thumbs.db"};
+    private String[] ignoredFiles = {".DS_Store", ".DS_Store?", "Thumbs.db", "._*", ".Spotlight-V100", ".Trashes", "ehthumbs.db", "Thumbs.db"};
     /**
      * The map of the folder that will be built
      */
-    Map<File, String> relativePath = new HashMap<>();
+    private Map<File, String> relativePath = new HashMap<>();
     /**
      * 
      * @param side The {@link Side} to build the zip for
@@ -130,14 +130,14 @@ public class ZipFile {
     private void addDirToArchive(ZipOutputStream outputStream, File srcFile, String parent) {
         for(File file : srcFile.listFiles()) {
             if(file.isDirectory()) {
-                addDirToArchive(outputStream, file, parent.equals("") ? srcFile.getName() : parent + "/" + srcFile.getName());
+                addDirToArchive(outputStream, file, "".equals(parent) ? srcFile.getName() : parent + "/" + srcFile.getName());
                 continue;
             }
             try {
                 byte[] buffer = new byte[1024];
                 
                 FileInputStream fis = new FileInputStream(file);
-                String entry = parent.equals("") ? srcFile.getName() + "/" + file.getName() : parent + "/" + srcFile.getName() + "/" + file.getName();
+                String entry = "".equals(parent) ? srcFile.getName() + "/" + file.getName() : parent + "/" + srcFile.getName() + "/" + file.getName();
                 outputStream.putNextEntry(new ZipEntry(entry));
                 TechnicAssembler.logger.fine("Zipping file: " + entry);
                 
