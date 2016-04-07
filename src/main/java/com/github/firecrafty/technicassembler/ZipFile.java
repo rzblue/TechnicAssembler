@@ -62,7 +62,7 @@ public class ZipFile {
         generateFiles(new File(TechnicAssembler.packDir + "/extra/" + side.toString()), parent + "");
         generateFiles(new File(TechnicAssembler.packDir + "/extra/" + Side.COMMON.toString()), parent + "");
         generateFiles(new File(TechnicAssembler.packDir + "/bin/" + side.toString()), parent + "bin");
-        
+
         return this;
     }
 
@@ -72,18 +72,17 @@ public class ZipFile {
      * @return Returns itself for chaining
      */
     public ZipFile zipIt() {
-        
+
         try {
             byte[] buffer = new byte[1024];
-            
+
             ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(outputZip));
             for (File file : relativePath.keySet()) {
-                
+
                 if (file.isFile()) {
                     FileInputStream inputStream = new FileInputStream(file);
                     outputStream.putNextEntry(new ZipEntry(relativePath.get(file)));
                     TechnicAssembler.logger.fine("Zipping file: " + relativePath.get(file));
-                    
                     int length;
                     while ((length = inputStream.read(buffer)) > 0) {
                         outputStream.write(buffer, 0, length);
@@ -99,7 +98,7 @@ public class ZipFile {
             TechnicAssembler.logger.warning(e.getMessage());
         }
         TechnicAssembler.logger.info("Zip file created: " + outputZip);
-        
+
         return this;
     }
 
@@ -120,7 +119,7 @@ public class ZipFile {
                 String relPath = fileType;
                 if (!file.isDirectory()) {
                     relPath += "/" + file.getName();
-                }                
+                }
                 if (relPath.startsWith("/")) {
                     relPath = relPath.substring(1);
                 }
@@ -146,24 +145,23 @@ public class ZipFile {
             }
             try {
                 byte[] buffer = new byte[1024];
-                
+
                 FileInputStream fis = new FileInputStream(file);
                 String entry = "".equals(parent) ? srcFile.getName() + "/" + file.getName() : parent + "/" + srcFile.getName() + "/" + file.getName();
                 outputStream.putNextEntry(new ZipEntry(entry));
                 TechnicAssembler.logger.fine("Zipping file: " + entry);
-                
+
                 int length;
-                
+
                 while ((length = fis.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, length);
                 }
                 outputStream.closeEntry();
                 fis.close();
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    
 }
