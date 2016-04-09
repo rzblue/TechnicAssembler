@@ -1,0 +1,15 @@
+language: java
+jdk:
+    - openjdk7
+    - oraclejdk7
+    - oraclejdk8
+install: 
+    - scripts/setupVariables.sh
+    - ./gradlew assemble -Pci
+script: ./gradlew build -Pci
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
