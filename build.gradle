@@ -6,8 +6,6 @@ apply plugin: 'signing'
 archivesBaseName = app_name
 group = package_group
 version = app_version
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
 
 mainClassName="${main_class}"
 jar {
@@ -34,13 +32,13 @@ uploadArchives {
                 authentication(userName: sonatypeUsername, password: sonatypePassword)
             }
             pom.project {
-                name app_name
+                name package_group + ':' + app_name
                 packaging 'jar'
                 description "TechnicAssembler is a Java utility that simplifies the packaging of Minecraft modpacks for distribution on the Technic Platform"
                 url 'https://github.com/firecrafty/TechnicAssembler'
                 
                 scm {
-                    url 'scm:git@github.com:firecrafty/TechnicAssembler.git'
+                    url 'git@github.com:firecrafty/TechnicAssembler.git'
                     connection 'scm:git@github.com:firecrafty/TechnicAssembler.git'
                     developerConnection 'scm:git@github.com:firecrafty/TechnicAssembler.git'
                 }
