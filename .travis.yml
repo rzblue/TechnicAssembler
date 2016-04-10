@@ -5,8 +5,8 @@ jdk:
     - oraclejdk8
 install: 
     - scripts/setupVariables.sh
-    - ./gradlew assemble
-script: ./gradlew build
+    - ./gradlew assemble -Pci
+script: ./gradlew build -Pci
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:

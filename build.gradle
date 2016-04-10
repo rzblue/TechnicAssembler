@@ -21,7 +21,7 @@ signing {
     sign configurations.archives
 }
 signArchives {
-    onlyIf { project.hasProperty('signArchives') }
+    onlyIf { !project.hasProperty('ci') }
 }
 uploadArchives {
     repositories {
