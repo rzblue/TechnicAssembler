@@ -43,9 +43,6 @@ public class ZipFile {
      */
     public ZipFile(Side side) {
         this.side = side;
-        if (side == Side.CLIENT) {
-            parent = "";
-        }
         this.outputZip = TechnicAssembler.getZipName(side) + ".zip";
     }
 
