@@ -12,7 +12,7 @@ public class TechnicAssembler {
     /**
      * Name of the modpack
      */
-    private static String output = "Modpack";
+    private static String modpack = "Modpack";
     /**
      * Version of the modpack
      */
@@ -59,7 +59,7 @@ public class TechnicAssembler {
                     packDir = getPackFolder(arg.split("=")[1]);
                 }
                 if (arg.startsWith("-o=")) {
-                    output = arg.split("=")[1];
+                    modpack = arg.split("=")[1];
                 }
                 if (arg.startsWith("-v=")) {
                     version = arg.split("=")[1];
@@ -133,8 +133,21 @@ public class TechnicAssembler {
         if (useCustomName) {
             return customFileName + "-" + side.toString();
         } else {
-            return output + "-" + version + "-" + side.toString();
+            return modpack + "-" + version + "-" + side.toString();
         }
+    }
+    public static void setModpackName(String modpackName) {
+        modpack = modpackName;
+    }
+    public static void setModpackVersion(String modpackVersion) {
+        version = modpackVersion;
+    }
+    public static void setCustomName(String name) {
+        useCustomName = true;
+        customFileName = name;
+    }
+    public static void setPackDir(File dir) {
+        packDir = dir;
     }
 
 }
