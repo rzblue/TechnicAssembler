@@ -11,11 +11,6 @@ import static com.github.firecrafty.technicassembler.logging.Level.*;
  * @author firecrafty
  */
 public class SimpleLogger {
-
-    /**
-     * The calendar used for logging
-     */
-    private final Calendar calendar = Calendar.getInstance();
     /**
      * The format used to write the timestamp
      */
@@ -59,7 +54,7 @@ public class SimpleLogger {
      * @param message Message to log
      */
     private void log(Level level, String message) {
-        String output = format.format(calendar.getTime()) + " " + className + " [" + level.toString() + "] " + message;
+        String output = format.format(Calendar.getInstance().getTime()) + " " + className + " [" + level.toString() + "] " + message;
         if (level == SEVERE || level == WARNING) {
             System.err.println(output);
         } else {
@@ -140,7 +135,7 @@ public class SimpleLogger {
      * Writes the beginning message to the logfile
      */
     public void startLog() {
-        System.out.println("STARTING LOG FOR " + className.toUpperCase() + " ON " + calendar.getTime());
+        System.out.println("STARTING LOG FOR " + className.toUpperCase() + " ON " + Calendar.getInstance().getTime());
     }
 
     /**
@@ -153,25 +148,18 @@ public class SimpleLogger {
     }
 
     public void error(Exception ex) {
-        System.out.println("Having issues? You really shouldn't be seeing this message, but if you do, submit an issue on GitHub. Copy and paste this log entry into the issue");
-        System.out.println("================");
-        System.out.println("START STACKTRACE");
-        System.out.println("================");
+        System.err.println("Having issues? You really shouldn't be seeing this message, but if you do, submit an issue on GitHub. Copy and paste this log entry into the issue");
+        System.err.println("================");
+        System.err.println("START STACKTRACE");
+        System.err.println("================");
         ex.printStackTrace();
-        System.out.println("================");
-        System.out.println(" END STACKTRACE ");
-        System.out.println("================");
+        System.err.println("================");
+        System.err.println(" END STACKTRACE ");
+        System.err.println("================");
     }
 
     private void setupLogger() {
-        File f = this.logFile;
-        File output;
-        if (f.isFile()) {
-            output = new File(f.getName() + ".log");
-        } else {
-            output = new File("logger.log");
-        }
-
+        File output = new File(this.logFile.getName() + ".log");
         try {
             System.out.println("Setting up logger: " + output.getAbsolutePath());
             OutputStream fout = new BufferedOutputStream(new FileOutputStream(output));
