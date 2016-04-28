@@ -14,7 +14,7 @@ archivesBaseName = app_name
 group = package_group
 version = app_version
 
-mainClassName="${main_class}"
+mainClassName = "${main_class}"
 jar {
     classifier = ''
     manifest.mainAttributes(
@@ -34,7 +34,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-            
+
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: sonatypeUsername, password: sonatypePassword)
             }
@@ -43,13 +43,13 @@ uploadArchives {
                 packaging 'jar'
                 description "TechnicAssembler is a Java utility that simplifies the packaging of Minecraft modpacks for distribution on the Technic Platform"
                 url 'https://github.com/firecrafty/TechnicAssembler'
-                
+
                 scm {
                     url 'git@github.com:firecrafty/TechnicAssembler.git'
                     connection 'scm:git@github.com:firecrafty/TechnicAssembler.git'
                     developerConnection 'scm:git@github.com:firecrafty/TechnicAssembler.git'
                 }
-                
+
                 licenses {
                     license {
                         name 'GNU General Public License (GPL), Version 3.0'
@@ -63,10 +63,10 @@ uploadArchives {
                         name 'Ryan Blue'
                     }
                 }
-                
-                
+
+
             }
-                
+
         }
     }
 }
@@ -85,7 +85,7 @@ task sourcesJar(type: Jar) {
 }
 artifacts {
     archives jar
-    
+
     archives javadocJar
     archives sourcesJar
 }

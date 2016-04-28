@@ -11,7 +11,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- *
  * @author firecrafty
  */
 public class ZipFile {
@@ -38,7 +37,6 @@ public class ZipFile {
     private Map<File, String> relativePath = new HashMap<>();
 
     /**
-     *
      * @param side The {@link Side} to build the zip for
      */
     public ZipFile(Side side) {
@@ -102,9 +100,9 @@ public class ZipFile {
     /**
      * Adds the folders and files to a {@code HashMap}
      *
-     * @param folder The folder to scan for files
+     * @param folder   The folder to scan for files
      * @param fileType The type of folder ({@code config}, {@code mods},
-     * {@code bin}, or blank for extra
+     *                 {@code bin}, or blank for extra
      */
     @SuppressWarnings("ConstantConditions")
     private void generateFiles(File folder, String fileType) {
@@ -130,8 +128,8 @@ public class ZipFile {
      * Recursively adds all files in a directory (as well as subdirectories).
      *
      * @param outputStream The stream to add entries to
-     * @param srcFile File to add
-     * @param parent Parent directory
+     * @param srcFile      File to add
+     * @param parent       Parent directory
      */
     @SuppressWarnings("ConstantConditions")
     private void addDirToArchive(ZipOutputStream outputStream, File srcFile, String parent) {

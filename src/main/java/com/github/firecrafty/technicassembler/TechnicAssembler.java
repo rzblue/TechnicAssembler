@@ -1,14 +1,22 @@
 package com.github.firecrafty.technicassembler;
 
 import com.github.firecrafty.technicassembler.logging.SimpleLogger;
+
 import java.io.File;
 
 /**
- *
  * @author firecrafty
  */
 public class TechnicAssembler {
 
+    /**
+     * The directory that the pack file structure is in
+     */
+    protected static File packDir = getWorkingDirectory();
+    /**
+     * The logger for the program
+     */
+    protected static SimpleLogger logger = new SimpleLogger("TechnicAssembler", new File("TechnicAssembler"));
     /**
      * Name of the modpack
      */
@@ -17,11 +25,6 @@ public class TechnicAssembler {
      * Version of the modpack
      */
     private static String version = "0.0.0";
-    /**
-     * The directory that the pack file structure is in
-     */
-    protected static File packDir = getWorkingDirectory();
-
     /**
      * Build the client?
      */
@@ -38,13 +41,8 @@ public class TechnicAssembler {
      * The custom file name to use
      */
     private static String customFileName;
-    /**
-     * The logger for the program
-     */
-    protected static SimpleLogger logger = new SimpleLogger("TechnicAssembler", new File("TechnicAssembler.log"));
 
     /**
-     *
      * @param args Command line arguments
      */
     public static void main(String[] args) {
@@ -106,7 +104,6 @@ public class TechnicAssembler {
     }
 
     /**
-     *
      * @param dir
      * @return The directory that the pack is in
      */
@@ -136,16 +133,20 @@ public class TechnicAssembler {
             return modpack + "-" + version + "-" + side.toString();
         }
     }
+
     public static void setModpackName(String modpackName) {
         modpack = modpackName;
     }
+
     public static void setModpackVersion(String modpackVersion) {
         version = modpackVersion;
     }
+
     public static void setCustomName(String name) {
         useCustomName = true;
         customFileName = name;
     }
+
     public static void setPackDir(File dir) {
         packDir = dir;
     }
