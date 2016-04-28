@@ -3,7 +3,6 @@ package com.github.firecrafty.technicassembler;
 import java.util.Locale;
 
 /**
- *
  * @author firecrafty
  */
 public enum Side {

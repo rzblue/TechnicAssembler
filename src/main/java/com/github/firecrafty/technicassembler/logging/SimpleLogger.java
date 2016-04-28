@@ -1,17 +1,13 @@
 package com.github.firecrafty.technicassembler.logging;
 
-import static com.github.firecrafty.technicassembler.logging.Level.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.github.firecrafty.technicassembler.logging.Level.*;
+
 /**
- *
  * @author firecrafty
  */
 public class SimpleLogger {
@@ -26,6 +22,8 @@ public class SimpleLogger {
     private final SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.ENGLISH);
     /**
      * Log to file?
+     *
+     * @deprecated
      */
     private boolean logToFile;
     /**
@@ -41,46 +39,23 @@ public class SimpleLogger {
     private String className;
 
     /**
-     * Basic {@code SimpleLogger} without frills
-     */
-    public SimpleLogger() {
-    }
-
-    /**
-     * {@code SimpleLogger} with a nice looking name
-     *
-     * @param name The name of the class to show at the beginning of each log
-     * entry
-     */
-    public SimpleLogger(String name) {
-        className = name;
-    }
-
-    /**
-     * {@code SimpleLogger} with a log file attached
-     *
-     * @param parFile File to write the log to
-     */
-    public SimpleLogger(File parFile) {
-        setupFile(parFile);
-    }
-
-    /**
      * {@code SimpleLogger} with both name and log file
      *
-     * @param name The name of the class to show at the beginning of each log
-     * entry
+     * @param name    The name of the class to show at the beginning of each log
+     *                entry
      * @param parFile File to write the log to
      */
+
     public SimpleLogger(String name, File parFile) {
         className = name;
-        setupFile(parFile);
+        logFile = parFile;
+        setupLogger();
     }
 
     /**
      * Logs a message. Called by individual level log methods.
      *
-     * @param level Level to show in the log
+     * @param level   Level to show in the log
      * @param message Message to log
      */
     private void log(Level level, String message) {
@@ -89,15 +64,6 @@ public class SimpleLogger {
             System.err.println(output);
         } else {
             System.out.println(output);
-        }
-
-        if (logToFile) {
-            try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)))) {
-                out.println(output);
-                out.close();
-            } catch (IOException ex) {
-                error(ex);
-            }
         }
     }
 
@@ -169,48 +135,21 @@ public class SimpleLogger {
      *
      * @param parFile File to setup
      */
-    private void setupFile(File parFile) {
-        logFile = parFile;
-        try {
-            if (!logFile.exists()) {
-                logFile.createNewFile();
-            }
-        } catch (IOException ex) {
-            error(ex);
-        }
-        logToFile = true;
-    }
 
     /**
      * Writes the beginning message to the logfile
      */
     public void startLog() {
-        if (logToFile) {
-            try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)))) {
-                out.println("========================================");
-                out.println("STARTING LOG FOR " + className.toUpperCase() + " ON " + calendar.getTime());
-                out.println("========================================");
-                out.close();
-            } catch (IOException ex) {
-                error(ex);
-            }
-        }
+        System.out.println("STARTING LOG FOR " + className.toUpperCase() + " ON " + calendar.getTime());
     }
 
     /**
      * Writes the ending message to the logfile
+     *
+     * @deprecated
      */
     public void stopLog() {
-        if (logToFile) {
-            try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)))) {
-                out.println("========================================");
-                out.println("STOPPING LOG FOR " + className.toUpperCase());
-                out.println("========================================");
-                out.close();
-            } catch (IOException ex) {
-                error(ex);
-            }
-        }
+        System.out.println("STOPPING LOG FOR " + className.toUpperCase());
     }
 
     public void error(Exception ex) {
@@ -224,4 +163,23 @@ public class SimpleLogger {
         System.out.println("================");
     }
 
+    private void setupLogger() {
+        File f = this.logFile;
+        File output;
+        if (f.isFile()) {
+            output = new File(f.getName() + ".log");
+        } else {
+            output = new File("logger.log");
+        }
+
+        try {
+            System.out.println("Setting up logger: " + output.getAbsolutePath());
+            OutputStream fout = new BufferedOutputStream(new FileOutputStream(output));
+            System.setOut(new PrintStream(new MultiOutputStream(System.out, fout), true));
+            System.setErr(new PrintStream(new MultiOutputStream(System.err, fout), true));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            //We errored out, lets just continue on and hope the rest runs fine.
+        }
+    }
 }
