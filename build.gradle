@@ -3,6 +3,13 @@ apply plugin: 'application'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.sf.jopt-simple:jopt-simple:5.0.1'
+}
 archivesBaseName = app_name
 group = package_group
 version = app_version
