@@ -61,9 +61,11 @@ uploadArchives {
                     developer {
                         id 'firecrafty'
                         name 'Ryan Blue'
+                        roles {
+                            role 'Java Developer'
+                        }
                     }
                 }
-
 
             }
 
