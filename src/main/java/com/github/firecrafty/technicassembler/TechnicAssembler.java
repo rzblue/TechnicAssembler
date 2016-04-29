@@ -30,10 +30,6 @@ public class TechnicAssembler {
      */
     private static InputStream in;
     /**
-     * Config file
-     */
-    private static String configFile = "assemble.config";
-    /**
      * Name of the modpackName
      */
     private static String modpackName = "Modpack";
@@ -57,6 +53,7 @@ public class TechnicAssembler {
      * The custom file name to use
      */
     private static String customFileName;
+    public static boolean useForge;
 
     /**
      * @param args Command line arguments
@@ -92,12 +89,13 @@ public class TechnicAssembler {
     }
 
     private static void handleConfig() {
-        if (!new File(configFile).exists()) {
+        if (!Config.FILE.exists()) {
             initConfigFile();
         } else {
             loadConfig();
-            modpackName = properties.getProperty("modpack.name", modpackName);
-            modpackVersion = properties.getProperty("modpack.version", modpackVersion);
+            modpackName = properties.getProperty(Config.MODPACK_NAME, modpackName);
+            modpackVersion = properties.getProperty(Config.MODPACK_VERSION, modpackVersion);
+
         }
 
     }
@@ -141,7 +139,7 @@ public class TechnicAssembler {
 
     private static void initConfigFile() {
         try {
-            out = new FileOutputStream(configFile);
+            out = new FileOutputStream(Config.FILE);
             setDefaultProperties();
             properties.store(out, "Modpack config for TechnicAssembler");
         } catch (IOException ex) {
@@ -159,7 +157,7 @@ public class TechnicAssembler {
 
     private static void loadConfig() {
         try {
-            in = new FileInputStream(configFile);
+            in = new FileInputStream(Config.FILE);
             properties.load(in);
         } catch (IOException ex) {
             ex.printStackTrace();
