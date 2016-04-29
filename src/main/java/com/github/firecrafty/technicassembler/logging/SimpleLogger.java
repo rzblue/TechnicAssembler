@@ -47,6 +47,28 @@ public class SimpleLogger {
         setupLogger();
     }
 
+    private void setupLogger() {
+        File output = new File(this.logFile.getName() + ".log");
+        try {
+            System.out.println("Setting up logger: " + output.getAbsolutePath());
+            OutputStream fout = new BufferedOutputStream(new FileOutputStream(output));
+            System.setOut(new PrintStream(new MultiOutputStream(System.out, fout), true));
+            System.setErr(new PrintStream(new MultiOutputStream(System.err, fout), true));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            //We errored out, lets just continue on and hope the rest runs fine.
+        }
+    }
+
+    /**
+     * Logs a severe message
+     *
+     * @param message Message to log
+     */
+    public void severe(String message) {
+        log(SEVERE, message);
+    }
+
     /**
      * Logs a message. Called by individual level log methods.
      *
@@ -60,15 +82,6 @@ public class SimpleLogger {
         } else {
             System.out.println(output);
         }
-    }
-
-    /**
-     * Logs a severe message
-     *
-     * @param message Message to log
-     */
-    public void severe(String message) {
-        log(SEVERE, message);
     }
 
     /**
@@ -117,19 +130,19 @@ public class SimpleLogger {
     }
 
     /**
-     * Logs the "finest" method
+     * Setup the logfile. Called when {@code logToFile} is true
+     *
+     * @param parFile File to setup
+     */
+
+    /**
+     * Logs the "finest" message
      *
      * @param message Message to log
      */
     public void finest(String message) {
         log(FINEST, message);
     }
-
-    /**
-     * Setup the logfile. Called when {@code logToFile} is true
-     *
-     * @param parFile File to setup
-     */
 
     /**
      * Writes the beginning message to the logfile
@@ -156,18 +169,5 @@ public class SimpleLogger {
         System.err.println("================");
         System.err.println(" END STACKTRACE ");
         System.err.println("================");
-    }
-
-    private void setupLogger() {
-        File output = new File(this.logFile.getName() + ".log");
-        try {
-            System.out.println("Setting up logger: " + output.getAbsolutePath());
-            OutputStream fout = new BufferedOutputStream(new FileOutputStream(output));
-            System.setOut(new PrintStream(new MultiOutputStream(System.out, fout), true));
-            System.setErr(new PrintStream(new MultiOutputStream(System.err, fout), true));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            //We errored out, lets just continue on and hope the rest runs fine.
-        }
     }
 }

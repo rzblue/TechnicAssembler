@@ -2,13 +2,13 @@ package com.github.firecrafty.technicassembler;
 
 import com.github.firecrafty.technicassembler.logging.SimpleLogger;
 
-import java.io.File;
+import java.io.*;
+import java.util.Properties;
 
 /**
  * @author firecrafty
  */
 public class TechnicAssembler {
-
     /**
      * The directory that the pack file structure is in
      */
@@ -18,13 +18,29 @@ public class TechnicAssembler {
      */
     protected static SimpleLogger logger = new SimpleLogger("TechnicAssembler", new File("TechnicAssembler"));
     /**
-     * Name of the modpack
+     * Properties for the modpackName
      */
-    private static String modpack = "Modpack";
+    private static Properties properties = new Properties();
     /**
-     * Version of the modpack
+     * OutputStream used to output the config file
      */
-    private static String version = "0.0.0";
+    private static OutputStream out;
+    /**
+     * InputStream used to write the config to the file
+     */
+    private static InputStream in;
+    /**
+     * Config file
+     */
+    private static String configFile = "assemble.config";
+    /**
+     * Name of the modpackName
+     */
+    private static String modpackName = "Modpack";
+    /**
+     * Version of the modpackName
+     */
+    private static String modpackVersion = "0.0.0";
     /**
      * Build the client?
      */
@@ -47,20 +63,21 @@ public class TechnicAssembler {
      */
     public static void main(String[] args) {
         logger.startLog();
+        handleConfig();
         for (String arg : args) {
             if (arg.startsWith("-")) {
-                if (arg.startsWith("-n")) {
+                if (arg.startsWith("-n=")) {
                     useCustomName = true;
                     customFileName = arg.split("=")[1];
                 }
-                if (arg.startsWith("-d")) {
+                if (arg.startsWith("-d=")) {
                     packDir = getPackFolder(arg.split("=")[1]);
                 }
                 if (arg.startsWith("-o=")) {
-                    modpack = arg.split("=")[1];
+                    modpackName = arg.split("=")[1];
                 }
                 if (arg.startsWith("-v=")) {
-                    version = arg.split("=")[1];
+                    modpackVersion = arg.split("=")[1];
                 }
                 if (arg.equalsIgnoreCase("-client")) {
                     buildClient = true;
@@ -72,6 +89,25 @@ public class TechnicAssembler {
         }
         zipContents();
         logger.stopLog();
+    }
+
+    private static void handleConfig() {
+        if (!new File(configFile).exists()) {
+            initConfigFile();
+        } else {
+            loadConfig();
+            modpackName = properties.getProperty("modpack.name", modpackName);
+            modpackVersion = properties.getProperty("modpack.version", modpackVersion);
+        }
+
+    }
+
+    /**
+     * @param dir
+     * @return The directory that the pack is in
+     */
+    public static File getPackFolder(String dir) {
+        return dir.charAt(1) == ':' ? new File(dir) : new File(getWorkingDirectory() + "/" + dir);
     }
 
     /**
@@ -103,12 +139,39 @@ public class TechnicAssembler {
 
     }
 
-    /**
-     * @param dir
-     * @return The directory that the pack is in
-     */
-    public static File getPackFolder(String dir) {
-        return dir.charAt(1) == ':' ? new File(dir) : new File(getWorkingDirectory() + "/" + dir);
+    private static void initConfigFile() {
+        try {
+            out = new FileOutputStream(configFile);
+            setDefaultProperties();
+            properties.store(out, "Modpack config for TechnicAssembler");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static void loadConfig() {
+        try {
+            in = new FileInputStream(configFile);
+            properties.load(in);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -118,6 +181,12 @@ public class TechnicAssembler {
      */
     public static File getWorkingDirectory() {
         return new File(System.getProperty("user.dir"));
+    }
+
+    private static void setDefaultProperties() {
+        properties.setProperty("modpack.name", modpackName);
+        properties.setProperty("modpack.version", modpackVersion);
+        properties.setProperty("forge.automatic", "false");
     }
 
     /**
@@ -130,16 +199,16 @@ public class TechnicAssembler {
         if (useCustomName) {
             return customFileName + "-" + side.toString();
         } else {
-            return modpack + "-" + version + "-" + side.toString();
+            return modpackName + "-" + modpackVersion + "-" + side.toString();
         }
     }
 
     public static void setModpackName(String modpackName) {
-        modpack = modpackName;
+        TechnicAssembler.modpackName = modpackName;
     }
 
     public static void setModpackVersion(String modpackVersion) {
-        version = modpackVersion;
+        TechnicAssembler.modpackVersion = modpackVersion;
     }
 
     public static void setCustomName(String name) {
@@ -150,5 +219,4 @@ public class TechnicAssembler {
     public static void setPackDir(File dir) {
         packDir = dir;
     }
-
 }
