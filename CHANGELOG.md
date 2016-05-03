@@ -9,9 +9,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Better more resource efficient logging
 - Code reorganization
+- Modpack config file [BETA]
 ### Planned
-- Config files
-- Automatic Forge download
+- Automatic Forge download (in the works and still beta)
 
 [1.2.2] - 2014-04-10
 --------------------

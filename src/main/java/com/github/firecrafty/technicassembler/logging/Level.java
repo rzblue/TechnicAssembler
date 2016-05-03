@@ -10,5 +10,5 @@ public enum Level {
     CONFIG,
     FINE,
     FINER,
-    FINEST;
+    FINEST
 }

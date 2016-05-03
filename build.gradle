@@ -8,7 +8,8 @@ repositories {
 }
 
 dependencies {
-    compile 'net.sf.jopt-simple:jopt-simple:5.0.1'
+    //TODO: compile 'net.sf.jopt-simple:jopt-simple:5.0.1'
+    compile 'commons-io:commons-io:2.5'
 }
 archivesBaseName = app_name
 group = package_group
@@ -16,6 +17,7 @@ version = app_version
 
 mainClassName = "${main_class}"
 jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     classifier = ''
     manifest.mainAttributes(
             "Main-Class": "${main_class}",

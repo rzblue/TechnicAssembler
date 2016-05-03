@@ -153,8 +153,6 @@ public class SimpleLogger {
 
     /**
      * Writes the ending message to the logfile
-     *
-     * @deprecated
      */
     public void stopLog() {
         System.out.println("STOPPING LOG FOR " + className.toUpperCase());

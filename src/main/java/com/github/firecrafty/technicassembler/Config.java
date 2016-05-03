@@ -20,16 +20,46 @@
 
 package com.github.firecrafty.technicassembler;
 
+
+
 import java.io.File;
+import java.util.Properties;
 
 /**
  * @author firecrafty
  */
 public class Config {
-    public final static String MODPACK_NAME = "modpack.name";
-    public final static String MODPACK_VERSION = "modpack.version";
-    public final static File FILE = new File(Config.FILENAME);
-    public final static String FILENAME = "assemble.config";
+
+    //Config file info
+    public final static File CONFIG_FILE = new File(Config.CONFIG_FILENAME);
+    private final static String CONFIG_FILENAME = "assemble.config";
+    //The default properties
+    public static Properties DEFAULT_PROPERTIES = new Properties();
+    //Keys
+    public final static String MODPACK_NAME_KEY =       "modpack.name";
+    public final static String MODPACK_VERSION_KEY =    "modpack.version";
+    public final static String USE_FORGE_DOWNLOAD_KEY = "forge.automatic";
+    public final static String FORGE_VERSION_KEY =      "forge.version";
+    public final static String USE_CUSTOM_NAME_KEY =    "modpack.useCustomName";
+    public final static String CUSTOM_NAME_KEY =        "modpack.customName";
+
+    //Property data
+    public final static String MODPACK_NAME =           "Modpack";
+    public final static String MODPACK_VERSION =        "0.0.0";
+    public final static String USE_FORGE_DOWNLOAD =     "false";
+    public final static String FORGE_VERSION =          "1.8.9-11.15.1.1855";
+    public final static String USE_CUSTOM_NAME =        "false";
+    public final static String CUSTOM_NAME =            "";
+
+    public static void setDefaultProperties() {
+        DEFAULT_PROPERTIES.setProperty(Config.MODPACK_NAME_KEY, Config.MODPACK_NAME);
+        DEFAULT_PROPERTIES.setProperty(Config.MODPACK_VERSION_KEY, Config.MODPACK_VERSION);
+        DEFAULT_PROPERTIES.setProperty(Config.USE_FORGE_DOWNLOAD_KEY, Config.USE_FORGE_DOWNLOAD);
+        DEFAULT_PROPERTIES.setProperty(Config.FORGE_VERSION_KEY, Config.FORGE_VERSION);
+        DEFAULT_PROPERTIES.setProperty(Config.USE_CUSTOM_NAME_KEY, Config.USE_CUSTOM_NAME);
+        DEFAULT_PROPERTIES.setProperty(Config.CUSTOM_NAME_KEY, Config.CUSTOM_NAME);
+    }
+
+
 
 }
-

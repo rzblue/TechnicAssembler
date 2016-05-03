@@ -23,6 +23,7 @@ public class ZipFile {
      * The name of the zipfile
      */
     private String outputZip = "";
+    private File outputZipFile;
     /**
      * The parent directory
      */
@@ -42,6 +43,8 @@ public class ZipFile {
     public ZipFile(Side side) {
         this.side = side;
         this.outputZip = TechnicAssembler.getZipName(side) + ".zip";
+        this.outputZipFile = new File("build/zips/" + outputZip);
+        this.outputZipFile.getParentFile().mkdirs();
     }
 
     /**
@@ -98,7 +101,7 @@ public class ZipFile {
         try {
             byte[] buffer = new byte[1024];
 
-            ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(outputZip));
+            ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(outputZipFile));
             for (File file : relativePath.keySet()) {
 
                 if (file.isFile()) {
